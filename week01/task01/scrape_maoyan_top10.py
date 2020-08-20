@@ -12,7 +12,6 @@ import os
 user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36'
 #临时代理，运行时需要随时替换
 proxies = { "http": "http://116.62.150.144:25939", "https": "http://116.62.150.144:25939"} 
-cookies = '__mta=156120324.1597742408223.1597751543169.1597830931897.7; uuid_n_v=v1; uuid=01A263B0E13411EAABD8ED85325F9646EA385D5F6E304B69AC27F29C8E27F9C6; _lxsdk_cuid=17400de61c5c8-03530536a5e45c-31657304-1aeaa0-17400de61c5c8; _lxsdk=01A263B0E13411EAABD8ED85325F9646EA385D5F6E304B69AC27F29C8E27F9C6; mojo-uuid=a95cb5455a48d6d591cb8bcb70793d6b; Hm_lvt_703e94591e87be68cc8da0da7cbd0be2=1597742408,1597747376,1597814426; mojo-session-id={"id":"0cdec406216dd41be5e4e0091f69aff7","time":1597936766746}; mojo-trace-id=1; Hm_lpvt_703e94591e87be68cc8da0da7cbd0be2=1597936767; __mta=156120324.1597742408223.1597830931897.1597936766911.8; _lxsdk_s=1740c740fb2-258-bce-5a7%7C%7C1'
 cookies = '__mta=156120324.1597742408223.1597751543169.1597830931897.7; uuid_n_v=v1; uuid=01A263B0E13411EAABD8ED85325F9646EA385D5F6E304B69AC27F29C8E27F9C6; _lxsdk_cuid=17400de61c5c8-03530536a5e45c-31657304-1aeaa0-17400de61c5c8; _lxsdk=01A263B0E13411EAABD8ED85325F9646EA385D5F6E304B69AC27F29C8E27F9C6; mojo-uuid=a95cb5455a48d6d591cb8bcb70793d6b; Hm_lvt_703e94591e87be68cc8da0da7cbd0be2=1597742408,1597747376,1597814426; mojo-session-id={"id":"0cdec406216dd41be5e4e0091f69aff7","time":1597936766746}; mojo-trace-id=2; Hm_lpvt_703e94591e87be68cc8da0da7cbd0be2=1597937862; _lxsdk_s=1740c740fb2-258-bce-5a7%7C%7C3; __mta=156120324.1597742408223.1597830931897.1597937862135.8'
 #获取网页内容，使用requests获取猫眼电影页
 def get_html(url):
@@ -87,7 +86,6 @@ def save_data_csv(filename, data, size):
 if __name__ == "__main__":
     start_url = 'https://maoyan.com/films?showType=3'
     content = get_html(start_url)
-    print(content)
     #自己开发测试所用
     #filename1 = "maoyan_movie.txt"
     filename = "maoyan_moive_top10.csv"
@@ -97,5 +95,4 @@ if __name__ == "__main__":
     #content = read_data(filename1)
 
     data_list = parse_html_bs4( content )
-    print(data_list)
     save_data_csv(filename, data_list, 10)
