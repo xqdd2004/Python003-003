@@ -36,14 +36,27 @@ def parse_xpath_scrapy( web_data ):
         #print(movie_info)
         #print(movie_info.xpath('./div/text()'))
 
+#
+def save_item_csv ():
+    movie_name = '大鱼海棠'
+    movie_type = 'type'
+    movie_actors = 'chenchen'
+    movie_release_time = '2020-12-13'
+    movie_info = f'{movie_name}, {movie_type}, {movie_release_time}, {movie_actors}\r\n'
+
+    with open("./maoyan_movie.csv",'a+', encoding='utf-8') as file :
+        file.write(movie_info)
+        file.close()
+
 
 if __name__ == "__main__":
 
     #自己开发测试所用
-    filename = "maoyan_movie.txt"
+    #filename = "maoyan_movie.txt"
     #保存页面html到本地文件
     #save_data_file(filename, content)
     #测试时所用，从文件中读取网页内容
-    web_data = read_data(filename)
+    #web_data = read_data(filename)
 
-    parse_xpath_scrapy( web_data )    
+    #parse_xpath_scrapy( web_data )    
+    save_item_csv()

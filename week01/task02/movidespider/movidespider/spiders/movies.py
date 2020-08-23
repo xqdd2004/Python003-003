@@ -3,6 +3,7 @@ import scrapy
 from scrapy.selector import Selector
 from movidespider.items import MovidespiderItem
 
+
 class MoviesSpider( scrapy.Spider ):
     name = 'movies'
     allowed_domains = ['maoyan.com']
@@ -11,9 +12,10 @@ class MoviesSpider( scrapy.Spider ):
     #
     def parse(self, response):
         selector = Selector(response=response)
-        print(response.text)
-        items = []
+        #print(response.text)
+        #items = []
         movie_list = selector.xpath('//div[@class="movie-hover-info"]')
+        #size = 10
         for movie_info in movie_list:
             attr_list = movie_info.xpath('./div')
             movie_name = attr_list[0].xpath('./@title').extract_first().strip()
@@ -26,9 +28,9 @@ class MoviesSpider( scrapy.Spider ):
             item['movie_type'] = movie_type
             item['movie_actors'] = movie_actors
             item['movie_release_time'] = movie_release_time
-            print(item)
-            items.append(item)
-        return items
+            #print(item)
+            yield item
+        #return items[:size]
 
 
 
