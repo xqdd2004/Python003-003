@@ -6,7 +6,7 @@ CREATE TABLE `users` (
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 """
-
+##此文件，非作业文件 
 from libmysql import MYSQL
 
 # msyql dababase connection info

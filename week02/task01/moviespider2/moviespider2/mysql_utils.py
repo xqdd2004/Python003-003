@@ -1,5 +1,6 @@
 from pymysql import (connect, cursors, err, escape_sequence)
 
+#此文件，非作业文件
 
 def connect_db(mysqldb_conn):
     # msyql dababase connection info

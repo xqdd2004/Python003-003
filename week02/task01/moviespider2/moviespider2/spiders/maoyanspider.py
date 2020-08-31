@@ -21,12 +21,14 @@ class MaoyanspiderSpider(scrapy.Spider):
             }
             #proxies = { "http": "http://116.62.150.144:25939"} 
             #代理IP为临时IP，运行是需要替换
-            yield scrapy.Request(url, headers=headers, meta={"proxy":"http://47.99.182.131:26675"},callback=self.parse)
+            #yield scrapy.Request(url, headers=headers, meta={"proxy":"http://47.99.182.131:26675"},callback=self.parse)
+            print('测试代理中间机')
+            yield scrapy.Request(url, headers=headers, dont_filter=True, callback=self.parse)
 
 
     def parse(self, response):
         selector = Selector(response=response)
-        print(response.text)
+        #print(response.text)
         movie_list = selector.xpath('//div[@class="movie-hover-info"]')  
         for movie_info in movie_list:
             attr_list = movie_info.xpath('./div')

@@ -4,9 +4,41 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.downloadermiddlewares.httpproxy import HttpProxyMiddleware
+from scrapy.exceptions import NotConfigured
+from collections import defaultdict
+from urllib.parse import urlparse
+import random
+# from scrapy.utils.httpobj import urlparse_cached
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+
+
+class RandomHttpProxyMiddleware(HttpProxyMiddleware):
+
+    def __init__(self, auth_encoding='utf-8', proxy_list = None):
+        self.proxies = defaultdict(list)
+        for proxy in proxy_list:
+            parse = urlparse(proxy)
+            self.proxies[parse.scheme].append(proxy)
+        # print("测试代理列表：")
+        # print(self.proxies )
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        if not crawler.settings.get('HTTP_PROXY_LIST'):
+            raise NotConfigured
+
+        http_proxy_list = crawler.settings.get('HTTP_PROXY_LIST')  
+        auth_encoding = crawler.settings.get('HTTPPROXY_AUTH_ENCODING', 'utf-8')
+
+        return cls(auth_encoding, http_proxy_list)
+
+
+    def _set_proxy(self, request, scheme):
+        proxy = random.choice(self.proxies[scheme])
+        request.meta['proxy'] = proxy
 
 
 class Moviespider2SpiderMiddleware:
@@ -87,6 +119,8 @@ class Moviespider2DownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
+        print('使用代理')
+        print(request.meta)
         return response
 
     def process_exception(self, request, exception, spider):
