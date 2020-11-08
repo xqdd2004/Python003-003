@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="col-md-6" style="margin: 0 auto;">
+
+  {% for message in messages %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 1rem;">
+    <strong>{{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <button type="submit" class="btn btn-primary" style="margin: 1rem auto 0 auto;display: block;", value="Login">Login</button>
+</form>
+</div>
+{% endblock %}
